@@ -74,16 +74,24 @@ const Prompt = () => {
         </TouchableOpacity>
       </View>
       {/* Prompt Area */}
-      <TextInput
-        multiline={true}
-        numberOfLines={4}
-        textAlignVertical="top"
-        placeholder="A blue lion logo reading ‘HEXA’ in bold letters"
-        style={styles.promptArea}
-        placeholderTextColor={"#71717A"}
-        value={prompt}
-        onChangeText={(text) => setPrompt(text)}
-      />
+      <View style={styles.promptAreaWrapper}>
+        <TextInput
+          multiline
+          numberOfLines={4}
+          textAlignVertical="top"
+          maxLength={500}
+          placeholder="A blue lion logo reading ‘HEXA’ in bold letters"
+          style={styles.promptArea}
+          placeholderTextColor={"#71717A"}
+          value={prompt}
+          onChangeText={(text) => {
+            if (text.length <= 500) {
+              setPrompt(text);
+            }
+          }}
+        />
+        <Text style={styles.charCountText}>{prompt.length}/500</Text>
+      </View>
     </View>
   );
 };
@@ -122,6 +130,29 @@ const styles = StyleSheet.create({
     padding: 12,
     backgroundColor: "#27272A",
     color: "#FAFAFA",
+    fontFamily: "Manrope-Regular",
+  },
+  promptAreaWrapper: {
+    position: "relative",
+    marginTop: 12,
+  },
+  promptArea: {
+    height: 200,
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 16,
+    padding: 12,
+    paddingBottom: 28,
+    backgroundColor: "#27272A",
+    color: "#FAFAFA",
+    fontFamily: "Manrope-Regular",
+  },
+  charCountText: {
+    position: "absolute",
+    bottom: 8,
+    left: 12,
+    fontSize: 12,
+    color: "#A1A1AA",
     fontFamily: "Manrope-Regular",
   },
 });
