@@ -149,10 +149,10 @@ const styles = StyleSheet.create({
   },
   charCountText: {
     position: "absolute",
-    bottom: 8,
+    bottom: 12,
     left: 12,
-    fontSize: 12,
-    color: "#A1A1AA",
+    fontSize: 11,
+    color: "#71717A",
     fontFamily: "Manrope-Regular",
   },
 });
