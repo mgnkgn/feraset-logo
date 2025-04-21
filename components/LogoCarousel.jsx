@@ -50,7 +50,7 @@ const LogoCarousel = () => {
                 styles.logoImage,
                 {
                   borderWidth: 2,
-                  borderColor: "#FAFAFA",
+                  borderColor: selectedStyle === style.id ? "#FAFAFA" : "",
                   backgroundColor: "#27272A",
                 },
               ]}
