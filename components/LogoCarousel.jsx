@@ -19,7 +19,7 @@ const LogoCarousel = () => {
     {
       id: "none",
       label: "No Style",
-      icon: <FontAwesome name="ban" size={24} color="white" />,
+      icon: <FontAwesome name="ban" size={40} color="white" />,
     },
     { id: "monogram", label: "Monogram", image: monogram },
     { id: "abstract", label: "Abstract", image: asbtract },
@@ -48,7 +48,11 @@ const LogoCarousel = () => {
             <View
               style={[
                 styles.logoImage,
-                { borderWidth: 2, borderColor: "#FAFAFA" },
+                {
+                  borderWidth: 2,
+                  borderColor: "#FAFAFA",
+                  backgroundColor: "#27272A",
+                },
               ]}
             >
               {style.icon}
