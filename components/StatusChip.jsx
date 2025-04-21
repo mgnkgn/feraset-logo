@@ -9,10 +9,12 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Spinner from "../ui/Spinner";
+import useAppStore from "@/stores/appStore";
 
 const result = require("@/assets/images/result.png");
 
-const StatusChip = ({ status, onPress }) => {
+const StatusChip = ({ onPress }) => {
+  const { status } = useAppStore();
   if (status === "idle") return null;
 
   return (
@@ -111,7 +113,6 @@ const styles = StyleSheet.create({
     fontWeight: "800",
     fontSize: 16,
     paddingLeft: 12,
-    paddingTop: 12,
   },
   statusSubText: {
     fontFamily: "Manrope-Regular",

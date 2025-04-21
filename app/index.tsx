@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
@@ -10,10 +10,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useFonts } from "expo-font";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-
-import Prompt from "../components/Prompt";
-import LogoCarousel from "../components/LogoCarousel";
-import StatusChip from "../components/StatusChip";
+import useAppStore from "@/stores/appStore";
+import Prompt from "@/components/Prompt";
+import LogoCarousel from "@/components/LogoCarousel";
+import StatusChip from "@/components/StatusChip";
+import React from "react";
 
 const backGradient = require("@/assets/images/back-gradient.png");
 
@@ -24,15 +25,24 @@ export default function Index() {
     "Manrope-Extrabold": require("@/assets/fonts/Manrope-ExtraBold.ttf"),
   });
 
-  const [status, setStatus] = useState<
-    "idle" | "processing" | "done" | "error"
-  >("idle");
+  const prompt = useAppStore((state) => state.prompt);
+  const setSubmittedPrompt = useAppStore((state) => state.setSubmittedPrompt);
+  const setPrompt = useAppStore((state) => state.setPrompt);
+  const setStatus = useAppStore((state) => state.setStatus);
+  const status = useAppStore((state) => state.status);
+
   const router = useRouter();
 
   const handleCreate = () => {
+    // Save for next screen and then clear ui
+    setSubmittedPrompt(prompt);
+    setPrompt("");
+
     setStatus("processing");
 
-    const delay = Math.floor(Math.random() * 31 + 30) * 1000;
+    // Random delay up to 2min
+    // const delay = Math.floor(Math.random() * 31 + 30) * 1000;
+    const delay = 5 * 1000;
     setTimeout(() => {
       setStatus("done");
     }, delay);
@@ -48,6 +58,15 @@ export default function Index() {
     }
   };
 
+  // Reset states on screen foıcus
+  useFocusEffect(
+    React.useCallback(() => {
+      setSubmittedPrompt("");
+      setPrompt("");
+      setStatus("idle");
+    }, [])
+  );
+
   return (
     <View style={styles.mainContent}>
       <ImageBackground
@@ -60,7 +79,8 @@ export default function Index() {
           <Text style={[styles.titleText]}>AI Logo</Text>
         </View>
 
-        <StatusChip status={status} onPress={handleChipPress} />
+        {/* Status Chip */}
+        <StatusChip onPress={handleChipPress} />
 
         {/* Prompt */}
         <Prompt />

@@ -6,9 +6,11 @@ import {
   TextInput,
 } from "react-native";
 import React, { useState } from "react";
+import useAppStore from "@/stores/appStore";
 
 const Prompt = () => {
-  const [prompt, setPrompt] = useState("");
+  const prompt = useAppStore((state) => state.prompt);
+  const setPrompt = useAppStore((state) => state.setPrompt);
 
   const generateRandomText = () => {
     const words = [

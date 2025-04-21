@@ -8,13 +8,16 @@ import {
 } from "react-native";
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import useAppStore from "@/stores/appStore";
 
 const monogram = require("@/assets/images/monogram.png");
 const asbtract = require("@/assets/images/abstract.png");
 const mascot = require("@/assets/images/mascot.png");
 
 const LogoCarousel = () => {
-  const [selectedStyle, setSelectedStyle] = React.useState("none");
+  const setSelectedStyle = useAppStore((state) => state.setSelectedStyle);
+  const selectedStyle = useAppStore((state) => state.selectedStyle);
+
   const stylesList = [
     {
       id: "none",
@@ -35,7 +38,7 @@ const LogoCarousel = () => {
         <TouchableOpacity
           key={style.id}
           style={[styles.flexCol, styles.logoBox]}
-          onPress={() => setSelectedStyle(style.id)}
+          onPress={() => setSelectedStyle(style)}
         >
           {style.image ? (
             <ImageBackground
@@ -50,7 +53,7 @@ const LogoCarousel = () => {
                 styles.logoImage,
                 {
                   borderWidth: 2,
-                  borderColor: selectedStyle === style.id ? "#FAFAFA" : "",
+                  borderColor: selectedStyle?.id === style.id ? "#FAFAFA" : "",
                   backgroundColor: "#27272A",
                 },
               ]}
@@ -62,7 +65,7 @@ const LogoCarousel = () => {
             style={[
               styles.logoText,
               {
-                color: selectedStyle === style.id ? "#FAFAFA" : "#71717A",
+                color: selectedStyle?.id === style.id ? "#FAFAFA" : "#71717A",
               },
             ]}
           >
