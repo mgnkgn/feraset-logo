@@ -15,6 +15,8 @@ import Prompt from "@/components/Prompt";
 import LogoCarousel from "@/components/LogoCarousel";
 import StatusChip from "@/components/StatusChip";
 import React from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/firebaseConfig";
 
 const backGradient = require("@/assets/images/back-gradient.png");
 
@@ -27,9 +29,12 @@ export default function Index() {
 
   const prompt = useAppStore((state) => state.prompt);
   const setSubmittedPrompt = useAppStore((state) => state.setSubmittedPrompt);
+  const submittedPrompt = useAppStore((state) => state.submittedPrompt);
   const setPrompt = useAppStore((state) => state.setPrompt);
   const setStatus = useAppStore((state) => state.setStatus);
   const status = useAppStore((state) => state.status);
+
+  const [delayDuration, setDelayDuration] = React.useState(0);
 
   const router = useRouter();
 
@@ -42,19 +47,40 @@ export default function Index() {
 
     // Random delay up to 2min
     // const delay = Math.floor(Math.random() * 31 + 30) * 1000;
-    const delay = 5 * 1000;
+    const delay = 3 * 1000;
+    setDelayDuration(delay);
     setTimeout(() => {
       setStatus("done");
     }, delay);
   };
 
-  const handleChipPress = () => {
+  const handleChipPress = async () => {
     if (status === "done") {
-      router.push("/output");
+      const success = await saveDataToFirestore();
+      if (success) {
+        router.push("/output");
+      }
     }
 
     if (status === "error") {
       handleCreate();
+    }
+  };
+
+  // Save data to Firestore
+  // This function is called when the user presses the status chip
+  const saveDataToFirestore = async () => {
+    try {
+      await addDoc(collection(db, "logos"), {
+        prompt: submittedPrompt,
+        style: useAppStore.getState().selectedStyle?.label || "default",
+        createdAt: new Date(),
+        duration: delayDuration,
+      });
+      return true;
+    } catch (error) {
+      setStatus("error");
+      return false;
     }
   };
 
@@ -64,6 +90,7 @@ export default function Index() {
       setSubmittedPrompt("");
       setPrompt("");
       setStatus("idle");
+      setDelayDuration(0);
     }, [])
   );
 
