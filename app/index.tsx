@@ -42,12 +42,12 @@ export default function Index() {
     // Save for next screen and then clear ui
     setSubmittedPrompt(prompt);
     setPrompt("");
-
     setStatus("processing");
 
     // Random delay up to 2min
-    // const delay = Math.floor(Math.random() * 31 + 30) * 1000;
-    const delay = 3 * 1000;
+    const delay = Math.floor(Math.random() * 31 + 30) * 1000;
+
+    //const delay = 3 * 1000; // For testing purposes
     setDelayDuration(delay);
     setTimeout(() => {
       setStatus("done");
