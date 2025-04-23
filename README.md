@@ -1,50 +1,77 @@
-# Welcome to your Expo app 👋
+# 🧠 AI Logo Generator (Expo + Firebase)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+An AI-powered logo generator built with **Expo**, **Firebase**, and **Zustand** for state management. This app allows users to input a prompt, select from different logo styles, and generate a custom logo powered by AI.
 
-## Get started
+---
 
-1. Install dependencies
+## 📱 Features
 
-   ```bash
-   npm install
-   ```
+- 🎨 Prompt-based AI logo generation  
+- 🖼️ Carousel to choose logo styles  
+- 📤 Save logo requests to Firebase  
+- 🧾 Tracks generation delay time  
+- 💾 Persistent app state using Zustand  
+- ⚡ Smooth UI and loading states  
+- 🛠 Responsive to user status (idle, processing, error, done)
 
-2. Start the app
+---
 
-   ```bash
-    npx expo start
-   ```
+## 🧭 How to Run
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### 1. Clone the Repo
 
 ```bash
-npm run reset-project
+git clone https://github.com/mgnkgn/feraset-logo
+
+cd feraset-case
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-## Learn more
+### 3. Configure firebase in firebaseConfig.js
 
-To learn more about developing your project with Expo, look at the following resources:
+Currently it is working with my firebase which is in test mode.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+const firebaseConfig = {
+  apiKey: "",
+  authDomain: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+};
+```
 
-## Join the community
+### 4. Run the App
 
-Join our community of developers creating universal apps.
+```bash
+npx expo start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## 🏗 Tech Stack
+
+| Tech               | Purpose                                          |
+|--------------------|--------------------------------------------------|
+| **Expo**           | React Native development with fast iteration     |
+| **Firebase**       | Cloud Firestore used for storing prompts         |
+| **Zustand**        | Lightweight and intuitive global state management|
+| **Expo Router**    | Navigation and screen transitions                |
+| **React Native**   | Cross-platform UI framework                      |
+| **Linear Gradient**| UI gradient button effects                       |
+| **Custom Fonts**   | Consistent branding and typography (Manrope)     |
+
+
+## 🧪 Functionality
+
+- 🔤 **Prompt Input** – Users can type what logo they want
+- 🎨 **Style Selection** – Choose from various predefined logo styles
+- ⚙️ **Simulated AI Generation** – Adds realistic delay to mimic backend processing
+- 🧠 **State Management** – Zustand handles global UI and data states
+- ☁️ **Firestore Integration** – Saves prompt, style, and delay duration to Firebase
+- 🚫 **Error Handling** – Prevents navigation if Firestore save fails
+- 🔄 **Reset State on Focus** – Ensures fresh state when user returns to home
