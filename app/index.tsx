@@ -17,6 +17,7 @@ import StatusChip from "@/components/StatusChip";
 import React from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
+import Spinner from "@/ui/Spinner";
 
 const backGradient = require("@/assets/images/back-gradient.png");
 
@@ -123,19 +124,30 @@ export default function Index() {
         <Pressable
           style={[styles.flexRow, styles.button]}
           onPress={handleCreate}
+          disabled={status === "processing"}
         >
           <LinearGradient
-            colors={["#2938DC", "#943DFF"]}
+            colors={
+              status === "processing"
+                ? ["#6D6DC6", "#A377D5"]
+                : ["#2938DC", "#943DFF"]
+            }
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={[styles.flexRow, styles.button]}
           >
-            <Text style={[styles.buttonText]}>Create</Text>
-            <FontAwesome6
-              name="wand-magic-sparkles"
-              size={14}
-              color="#FAFAFA"
-            />
+            <Text style={[styles.buttonText]}>
+              {status === "processing" ? "Creating" : "Create"}
+            </Text>
+            {status === "processing" ? (
+              <Spinner color="#FAFAFA" />
+            ) : (
+              <FontAwesome6
+                name="wand-magic-sparkles"
+                size={14}
+                color="#FAFAFA"
+              />
+            )}
           </LinearGradient>
         </Pressable>
       </ImageBackground>
